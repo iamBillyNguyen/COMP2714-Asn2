@@ -414,21 +414,13 @@ ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD';
 SELECT SYSDATE
 FROM DUAL;
 
-<<<<<<< HEAD
 -- Q1. List hotelName, hotelAddressm, room type, and price of all Single, DOuble, or Family rooms in city Paris in France 
 -- with a price below 100.00 per night, in descending order of hotelName, ascending order of price and descending order of type once.
-=======
--- Q1. List hotelName, hotelAddressm, room type, and price of all Single, DOuble, or Family rooms in city Paris in France with a price below 100.00 per night, in descending order of hotelName, ascending order of price and descending order of type once.
->>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
 SELECT DISTINCT h.hotelName, h.hotelAddress, r.type, r.price
 FROM Hotel h
    INNER JOIN Room r
       ON h.hotelNo = r.hotelNo
-<<<<<<< HEAD
-WHERE h.hotelAddress LIKE ‘%Paris%’
-=======
 WHERE h.hotelAddress LIKE '%Paris%'
->>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
    AND (h.country = 'France')
    AND ((r.type = 'Single')
    OR  (r.type = 'Double')
@@ -458,12 +450,8 @@ FROM Hotel h
 GROUP BY hotelName
 ORDER BY hotelName;
 
-<<<<<<< HEAD
 -- Q3b. List the average price of a room for each hotel in each country that is not Deluxe. List with the country and hotelName, 
 -- and in the country then hotelName order.
-=======
--- Q3b. List the average price of a room for each hotel in each country that is not Deluxe. List with the country and hotelName, and in the country then hotelName order.
->>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
 SELECT country, hotelName, AVG(price) AS AveragePrice
 FROM Hotel h
    INNER JOIN Room r
@@ -482,12 +470,8 @@ GROUP BY h.hotelName
 HAVING SUM(price) BETWEEN 500 AND 1000
 ORDER BY Revenue DESC;
 
-<<<<<<< HEAD
 -- Q5. List the type, price, numbers of rooms for each possible combination of type and price of all rooms at the hotels with ‘Grosvenor’ in name. 
 -- List only if the number of rooms for each type is greater than 3.
-=======
--- Q5. List the type, price, numbers of rooms for each possible combination of type and price of all rooms at the hotels with ‘Grosvenor’ in name. List only if the number of rooms for each type is greater than 3.
->>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
 SELECT DISTINCT hotelName, type, price, COUNT(*) AS Combinations
 FROM Hotel h
    INNER JOIN Room r
@@ -496,10 +480,7 @@ WHERE h.hotelName LIKE '%Grosvenor%'
 GROUP BY h.hotelName, r.type, r.price
 HAVING COUNT(*) > 3;
 
-<<<<<<< HEAD
 -- Q6. List all the guests currently staying at the Grosvenor Hotel. Include all guest information in the output.
-=======
--- Q6.
 >>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
  List the roomNo and all guest information currently staying at the Grosvenor Hotel.
 SELECT roomNo, g.guestNo, guestName, guestAddress, g.country
@@ -523,10 +504,7 @@ WHERE h.hotelName LIKE '%Grosvenor%'
 	AND dateFROM = DATE'2020-01-21'
 GROUP BY h.hotelName
 ORDER By h.hotelName;
-<<<<<<< HEAD
 
-=======
->>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
 -- Q8. List hotelNo, hotelName, type, total income of each room type from bookings for each hotel today. With an ascending order of hotelName and type.
 SELECT DISTINCT b.hotelNo, hotelName, type, SUM(price) AS Income
 FROM Booking b
@@ -540,9 +518,6 @@ WHERE dateFrom <= DATE'2020-01-21' AND
 GROUP BY b.hotelNo, hotelName, type
 ORDER BY hotelName ASC,
          type ASC;
-<<<<<<< HEAD
-		 
-=======
 
 >>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
 -- Q9. List the new hotels that are still under construction.
@@ -557,12 +532,9 @@ WHERE r.hotelNo IS NULL
 
 -- Q10. List total the number of Hotels, the number of hotels completed, the number of hotels under construction, and the percentage of hotels under construction 
 SELECT COUNT(DISTINCT h.hotelName) AS ALL_HOTELS, (COUNT(DISTINCT r.hotelNo)) AS COMPLETED, 
-<<<<<<< HEAD
    (COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) AS UNDERCONSTR, 
    (((COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) / COUNT(DISTINCT h.hotelName)) * 100) AS PERCENT_UNDERCONSTR
-=======
-   (COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) AS UNDERCONSTR, (((COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) / COUNT(DISTINCT h.hotelName)) * 100) AS PERCENT_UNDERCONSTR
->>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
+
 FROM Hotel h 
    FULL JOIN Room r
    ON h.hotelNo = r.hotelNo
