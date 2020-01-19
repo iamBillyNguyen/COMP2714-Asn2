@@ -1,4 +1,4 @@
-SQL> 
+﻿SQL> 
 SQL> --  COMP 2714
 SQL> --  SET 2B
 SQL> --  Assignment ASN02
@@ -19,7 +19,8 @@ SYSDATE
 2020-01-18                                                                                          
 
 SQL> 
-SQL> -- Q1. List hotelName, hotelAddressm, room type, and price of all Single, DOuble, or Family rooms in city Paris in France with a price below 100.00 per night, in descending order of hotelName, ascending order of price and descending order of type once.
+SQL>-- Q1. List hotelName, hotelAddressm, room type, and price of all Single, DOuble, or Family rooms in city Paris in France 
+SQL>-- with a price below 100.00 per night, in descending order of hotelName, ascending order of price and descending order of type once.
 SQL> SELECT DISTINCT h.hotelName, h.hotelAddress, r.type, r.price
   2  FROM Hotel h
   3     INNER JOIN Room r
@@ -85,7 +86,8 @@ The Ramada              162.5
 8 rows selected.
 
 SQL> 
-SQL> -- Q3b. List the average price of a room for each hotel in each country that is not Deluxe. List with the country and hotelName, and in the country then hotelName order.
+SQL> -- Q3b. List the average price of a room for each hotel in each country that is not Deluxe. List with the country and hotelName, 
+SQL> -- and in the country then hotelName order.is not Deluxe. List with the country and hotelName, and in the country then hotelName order.
 SQL> SELECT country, hotelName, AVG(price) AS AveragePrice
   2  FROM Hotel h
   3     INNER JOIN Room r
@@ -125,7 +127,8 @@ Park Royal Hotel        688
 The Ramada              600                                                                         
 
 SQL> 
-SQL> -- Q5. List the type, price, numbers of rooms for each possible combination of type and price of all rooms at the hotels with ‘Grosvenor’ in name. List only if the number of rooms for each type is greater than 3.
+SQL> -- Q5. List the type, price, numbers of rooms for each possible combination of type and price of all rooms at the hotels with ‘Grosvenor’ in name. 
+SQL> -- List only if the number of rooms for each type is greater than 3.
 SQL> SELECT DISTINCT hotelName, type, price, COUNT(*) AS Combinations
   2  FROM Hotel h
   3     INNER JOIN Room r
@@ -146,9 +149,7 @@ Grosvenor Inn    Double           95            5
 6 rows selected.
 
 SQL> 
-SQL> -- Q6.
-SQL>  List the roomNo and all guest information currently staying at the Grosvenor Hotel.
-SP2-0224: invalid starting line number
+SQL> -- Q6. List all the guests currently staying at the Grosvenor Hotel. Include all guest information in the output.
 SQL> SELECT roomNo, g.guestNo, guestName, guestAddress, g.country
   2  FROM Booking b
   3     INNER JOIN Guest g
@@ -221,17 +222,18 @@ SQL> SELECT h.hotelNo, hotelName, hotelAddress, country
          9 Royale Paris     500 Avenue Montaigne, Paris              France                         
 
 SQL> 
-SQL> -- Q10. List total the number of Hotels, the number of hotels completed, the number of hotels under construction, and the percentage of hotels under construction
+SQL> -- Q10. List total the number of Hotels, the number of hotels completed, the number of hotels under construction, and the percentage of hotels under construction 
 SQL> SELECT COUNT(DISTINCT h.hotelName) AS ALL_HOTELS, (COUNT(DISTINCT r.hotelNo)) AS COMPLETED,
-  2     (COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) AS UNDERCONSTR, (((COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) / COUNT(DISTINCT h.hotelName)) * 100) AS PERCENT_UNDERCONSTR
-  3  FROM Hotel h
-  4     FULL JOIN Room r
-  5     ON h.hotelNo = r.hotelNo
-  6  WHERE r.hotelNo IS NOT NULL
-  7     OR (r.hotelNo IS NULL
-  8     AND (roomNo IS NULL)
-  9     AND (type IS NULL)
- 10     AND (price IS NULL));
+  2     (COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) AS UNDERCONSTR, 
+  3     (((COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) / COUNT(DISTINCT h.hotelName)) * 100) AS PERCENT_UNDERCONSTR
+  4  FROM Hotel h
+  5     FULL JOIN Room r
+  6     ON h.hotelNo = r.hotelNo
+  7  WHERE r.hotelNo IS NOT NULL
+  8     OR (r.hotelNo IS NULL
+  9     AND (roomNo IS NULL)
+ 10     AND (type IS NULL)
+ 11     AND (price IS NULL));
 
 ALL_HOTELS  COMPLETED UNDERCONSTR PERCENT_UNDERCONSTR                                               
 ---------- ---------- ----------- -------------------                                               

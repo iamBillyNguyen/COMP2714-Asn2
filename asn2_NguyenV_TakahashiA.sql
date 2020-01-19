@@ -481,8 +481,6 @@ GROUP BY h.hotelName, r.type, r.price
 HAVING COUNT(*) > 3;
 
 -- Q6. List all the guests currently staying at the Grosvenor Hotel. Include all guest information in the output.
->>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
- List the roomNo and all guest information currently staying at the Grosvenor Hotel.
 SELECT roomNo, g.guestNo, guestName, guestAddress, g.country
 FROM Booking b
    INNER JOIN Guest g
@@ -519,7 +517,6 @@ GROUP BY b.hotelNo, hotelName, type
 ORDER BY hotelName ASC,
          type ASC;
 
->>>>>>> 7a9d37d6b428b7dc53093aa72501abd250cd7ed5
 -- Q9. List the new hotels that are still under construction.
 SELECT h.hotelNo, hotelName, hotelAddress, country
 FROM Hotel h 
@@ -534,7 +531,6 @@ WHERE r.hotelNo IS NULL
 SELECT COUNT(DISTINCT h.hotelName) AS ALL_HOTELS, (COUNT(DISTINCT r.hotelNo)) AS COMPLETED, 
    (COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) AS UNDERCONSTR, 
    (((COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) / COUNT(DISTINCT h.hotelName)) * 100) AS PERCENT_UNDERCONSTR
-
 FROM Hotel h 
    FULL JOIN Room r
    ON h.hotelNo = r.hotelNo
