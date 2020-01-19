@@ -400,7 +400,7 @@ SET TAB OFF
 SET LINESIZE 100
 SET PAGESIZE 60
 
-SPOOL "C:\Users\demon\Desktop\COMP 2714\WORK\Asn2\test.txt"
+SPOOL "C:\Users\ataka\Documents\2714\assignment2\Asn2_TakahashiA_NguyenV.txt"
 
 --  COMP 2714 
 --  SET 2B
@@ -503,12 +503,13 @@ WHERE dateFrom <= DATE'2020-01-21' AND
 -- Q7. List the total income from Bookings with ‘Grosvenor’ in name today.
 SELECT hotelName, SUM(price) AS Income
 FROM Booking b
-	INNER JOIN Room r
-		ON b.roomNo = r.roomNo
-	INNER JOIN Hotel h
-		ON b.hotelNo = h.hotelNo
+   INNER JOIN Room r
+   ON b.roomNo = r.roomNo
+   INNER JOIN Hotel h
+   ON b.hotelNo = h.hotelNo
 WHERE h.hotelName LIKE '%Grosvenor%'
-	AND dateFROM = DATE'2020-01-21'
+   AND dateFrom <= DATE'2020-01-21' AND 
+      (dateTo IS NULL OR dateTo >= DATE'2020-01-21')
 GROUP BY h.hotelName
 ORDER By h.hotelName;
 

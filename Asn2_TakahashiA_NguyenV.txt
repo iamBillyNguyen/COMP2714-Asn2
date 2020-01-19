@@ -19,8 +19,10 @@ SYSDATE
 2020-01-18                                                                                          
 
 SQL> 
-SQL>-- Q1. List hotelName, hotelAddressm, room type, and price of all Single, DOuble, or Family rooms in city Paris in France 
-SQL>-- with a price below 100.00 per night, in descending order of hotelName, ascending order of price and descending order of type once.
+SQL> -- Q1. List hotelName, hotelAddress, room type, and price of all
+SQL> -- Single, Double, or Family rooms in city Paris in France
+SQL> -- with a price below 100.00 per night, in descending order of hotelName,
+SQL> -- ascending order of price and descending order of type once.
 SQL> SELECT DISTINCT h.hotelName, h.hotelAddress, r.type, r.price
   2  FROM Hotel h
   3     INNER JOIN Room r
@@ -33,7 +35,7 @@ SQL> SELECT DISTINCT h.hotelName, h.hotelAddress, r.type, r.price
  10     AND (r.price < 100.00)
  11  ORDER BY h.hotelName DESC,
  12           r.price ASC,
- 13              r.price DESC;
+ 13      r.price DESC;
 
 HOTELNAME        HOTELADDRESS                             TYPE          PRICE                       
 ---------------- ---------------------------------------- -------- ----------                       
@@ -47,24 +49,26 @@ Grosvenor Hotel  100 Rue St. Dominique, Paris             Family           90
 6 rows selected.
 
 SQL> 
-SQL> -- Q2. List the hotelName, hotelAddress, roomNo, dateFrom and dateTo, where no dateTo has been specified in city Surrey in Canada
+SQL> -- Q2. List the hotelName, hotelAddress, roomNo, dateFrom and dateTo,
+SQL> -- where no dateTo has been specified in city Surrey in Canada
 SQL> SELECT hotelName, hotelAddress, roomNo, dateFrom, dateTo
   2  FROM Hotel h
   3     INNER JOIN Booking b
   4     ON h.hotelNo = b.hotelNo
   5  WHERE country = 'Canada'
   6      AND hotelAddress LIKE '%Surrey%'
-  7          AND hotelAddress NOT LIKE '%North Surrey%'
-  8          AND hotelAddress NOT LIKE '%South Surrey%'
-  9          AND country = 'Canada'
- 10          AND dateTo IS NULL;
+  7  AND hotelAddress NOT LIKE '%North Surrey%'
+  8  AND hotelAddress NOT LIKE '%South Surrey%'
+  9  AND country = 'Canada'
+ 10  AND dateTo IS NULL;
 
 HOTELNAME        HOTELADDRESS                                 ROOMNO DATEFROM   DATETO              
 ---------------- ---------------------------------------- ---------- ---------- ----------          
 Holiday Hotel    789 Paris St.,Surrey                             10 2020-01-21                     
 
 SQL> 
-SQL> -- Q3a. List the average price of a room for each hotel. List it with hotelName and in hotelName order.
+SQL> -- Q3a. List the average price of a room for each hotel.
+SQL> -- List it with hotelName and in hotelName order.
 SQL> SELECT hotelName, AVG(price) AS AveragePrice
   2  FROM Hotel h
   3     INNER JOIN Room r
@@ -86,8 +90,9 @@ The Ramada              162.5
 8 rows selected.
 
 SQL> 
-SQL> -- Q3b. List the average price of a room for each hotel in each country that is not Deluxe. List with the country and hotelName, 
-SQL> -- and in the country then hotelName order.is not Deluxe. List with the country and hotelName, and in the country then hotelName order.
+SQL> -- Q3b. List the average price of a room for each hotel in each country
+SQL> -- that is not Deluxe. List with the country and hotelName,
+SQL> -- and in the country then hotelName order.
 SQL> SELECT country, hotelName, AVG(price) AS AveragePrice
   2  FROM Hotel h
   3     INNER JOIN Room r
@@ -110,7 +115,8 @@ USA                  The Ramada         127.272727
 8 rows selected.
 
 SQL> 
-SQL> -- Q4. List the total Revenue with the hotelName, and only if the total revenue if between $500 to $1000. List in hotelName order
+SQL> -- Q4. List the total Revenue with the hotelName, and only if the total revenue
+SQL> -- is between $500 to $1000. List in hotelName order
 SQL> SELECT hotelName, SUM(price) AS Revenue
   2  FROM Hotel h
   3     INNER JOIN Room r
@@ -127,7 +133,8 @@ Park Royal Hotel        688
 The Ramada              600                                                                         
 
 SQL> 
-SQL> -- Q5. List the type, price, numbers of rooms for each possible combination of type and price of all rooms at the hotels with ‘Grosvenor’ in name. 
+SQL> -- Q5. List the type, price, numbers of rooms for each possible combination of
+SQL> -- type and price of all rooms at the hotels with `Grosvenor' in name.
 SQL> -- List only if the number of rooms for each type is greater than 3.
 SQL> SELECT DISTINCT hotelName, type, price, COUNT(*) AS Combinations
   2  FROM Hotel h
@@ -149,7 +156,9 @@ Grosvenor Inn    Double           95            5
 6 rows selected.
 
 SQL> 
-SQL> -- Q6. List all the guests currently staying at the Grosvenor Hotel. Include all guest information in the output.
+SQL> -- Q6. List all the guests currently staying at the Grosvenor Hotel.
+SQL> -- Include all guest information in the output.
+SQL> 
 SQL> SELECT roomNo, g.guestNo, guestName, guestAddress, g.country
   2  FROM Booking b
   3     INNER JOIN Guest g
@@ -166,23 +175,27 @@ SQL> SELECT roomNo, g.guestNo, guestName, guestAddress, g.country
          4         12 Sundeep Mohan   1000 Victoria Avenue, Paris              France               
 
 SQL> 
-SQL> -- Q7. List the total income from Bookings with ‘Grosvenor’ in name today.
+SQL> -- Q7. List the total income from Bookings with `Grosvenor' in name today.
 SQL> SELECT hotelName, SUM(price) AS Income
   2  FROM Booking b
-  3          INNER JOIN Room r
-  4                  ON b.roomNo = r.roomNo
-  5          INNER JOIN Hotel h
-  6                  ON b.hotelNo = h.hotelNo
+  3     INNER JOIN Room r
+  4     ON b.roomNo = r.roomNo
+  5     INNER JOIN Hotel h
+  6     ON b.hotelNo = h.hotelNo
   7  WHERE h.hotelName LIKE '%Grosvenor%'
-  8          AND dateFROM = DATE'2020-01-21'
-  9  GROUP BY h.hotelName
- 10  ORDER By h.hotelName;
+  8     AND dateFrom <= DATE'2020-01-21' AND
+  9        (dateTo IS NULL OR dateTo >= DATE'2020-01-21')
+ 10  GROUP BY h.hotelName
+ 11  ORDER By h.hotelName;
 
 HOTELNAME            INCOME                                                                         
 ---------------- ----------                                                                         
-Grosvenor Hotel         553                                                                         
+Grosvenor Hotel        1261                                                                         
+Grosvenor Inn           553                                                                         
 
-SQL> -- Q8. List hotelNo, hotelName, type, total income of each room type from bookings for each hotel today. With an ascending order of hotelName and type.
+SQL> 
+SQL> -- Q8. List hotelNo, hotelName, type, total income of each room type
+SQL> -- from bookings for each hotel today. With an ascending order of hotelName and type.
 SQL> SELECT DISTINCT b.hotelNo, hotelName, type, SUM(price) AS Income
   2  FROM Booking b
   3     INNER JOIN Hotel h
@@ -222,9 +235,10 @@ SQL> SELECT h.hotelNo, hotelName, hotelAddress, country
          9 Royale Paris     500 Avenue Montaigne, Paris              France                         
 
 SQL> 
-SQL> -- Q10. List total the number of Hotels, the number of hotels completed, the number of hotels under construction, and the percentage of hotels under construction 
+SQL> -- Q10. List total the number of Hotels, the number of hotels completed,
+SQL> -- the number of hotels under construction, and the percentage of hotels under construction
 SQL> SELECT COUNT(DISTINCT h.hotelName) AS ALL_HOTELS, (COUNT(DISTINCT r.hotelNo)) AS COMPLETED,
-  2     (COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) AS UNDERCONSTR, 
+  2     (COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) AS UNDERCONSTR,
   3     (((COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) / COUNT(DISTINCT h.hotelName)) * 100) AS PERCENT_UNDERCONSTR
   4  FROM Hotel h
   5     FULL JOIN Room r
