@@ -24,7 +24,7 @@ SQL> SELECT DISTINCT h.hotelName, h.hotelAddress, r.type, r.price
   2  FROM Hotel h
   3     INNER JOIN Room r
   4        ON h.hotelNo = r.hotelNo
-  5  WHERE h.hotelAddress LIKE ‘%Paris%’
+  5  WHERE h.hotelAddress LIKE '%Paris%'
   6     AND (h.country = 'France')
   7     AND ((r.type = 'Single')
   8     OR  (r.type = 'Double')
@@ -33,11 +33,17 @@ SQL> SELECT DISTINCT h.hotelName, h.hotelAddress, r.type, r.price
  11  ORDER BY h.hotelName DESC,
  12           r.price ASC,
  13              r.price DESC;
-WHERE h.hotelAddress LIKE ‘%Paris%’
-                            *
-ERROR at line 5:
-ORA-00911: invalid character 
 
+HOTELNAME        HOTELADDRESS                             TYPE          PRICE                       
+---------------- ---------------------------------------- -------- ----------                       
+Holiday Inn      56 Rue Bonaparte, Paris                  Single           35                       
+Holiday Inn      56 Rue Bonaparte, Paris                  Double           50                       
+Grosvenor Hotel  100 Rue St. Dominique, Paris             Single           40                       
+Grosvenor Hotel  100 Rue St. Dominique, Paris             Double           55                       
+Grosvenor Hotel  100 Rue St. Dominique, Paris             Family           85                       
+Grosvenor Hotel  100 Rue St. Dominique, Paris             Family           90                       
+
+6 rows selected.
 
 SQL> 
 SQL> -- Q2. List the hotelName, hotelAddress, roomNo, dateFrom and dateTo, where no dateTo has been specified in city Surrey in Canada

@@ -419,7 +419,7 @@ SELECT DISTINCT h.hotelName, h.hotelAddress, r.type, r.price
 FROM Hotel h
    INNER JOIN Room r
       ON h.hotelNo = r.hotelNo
-WHERE h.hotelAddress LIKE ‘%Paris%’
+WHERE h.hotelAddress LIKE '%Paris%'
    AND (h.country = 'France')
    AND ((r.type = 'Single')
    OR  (r.type = 'Double')
