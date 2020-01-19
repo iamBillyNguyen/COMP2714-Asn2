@@ -400,7 +400,7 @@ SET TAB OFF
 SET LINESIZE 100
 SET PAGESIZE 60
 
-SPOOL "C:\Users\ataka\Documents\2714\assignment2\Asn2_TakahashiA_NguyenV.txt"
+SPOOL "C:\Users\demon\Desktop\COMP 2714\WORK\Asn2\test.txt"
 
 --  COMP 2714 
 --  SET 2B
@@ -414,8 +414,10 @@ ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD';
 SELECT SYSDATE
 FROM DUAL;
 
--- Q1. List hotelName, hotelAddressm, room type, and price of all Single, DOuble, or Family rooms in city Paris in France 
--- with a price below 100.00 per night, in descending order of hotelName, ascending order of price and descending order of type once.
+-- Q1. List hotelName, hotelAddress, room type, and price of all 
+-- Single, Double, or Family rooms in city Paris in France 
+-- with a price below 100.00 per night, in descending order of hotelName, 
+-- ascending order of price and descending order of type once.
 SELECT DISTINCT h.hotelName, h.hotelAddress, r.type, r.price
 FROM Hotel h
    INNER JOIN Room r
@@ -430,7 +432,8 @@ ORDER BY h.hotelName DESC,
          r.price ASC,
 	    r.price DESC;
 
--- Q2. List the hotelName, hotelAddress, roomNo, dateFrom and dateTo, where no dateTo has been specified in city Surrey in Canada
+-- Q2. List the hotelName, hotelAddress, roomNo, dateFrom and dateTo, 
+-- where no dateTo has been specified in city Surrey in Canada
 SELECT hotelName, hotelAddress, roomNo, dateFrom, dateTo 
 FROM Hotel h
    INNER JOIN Booking b 
@@ -442,7 +445,8 @@ WHERE country = 'Canada'
 	AND country = 'Canada'
 	AND dateTo IS NULL;
 
--- Q3a. List the average price of a room for each hotel. List it with hotelName and in hotelName order.
+-- Q3a. List the average price of a room for each hotel. 
+-- List it with hotelName and in hotelName order.
 SELECT hotelName, AVG(price) AS AveragePrice
 FROM Hotel h
    INNER JOIN Room r
@@ -450,7 +454,8 @@ FROM Hotel h
 GROUP BY hotelName
 ORDER BY hotelName;
 
--- Q3b. List the average price of a room for each hotel in each country that is not Deluxe. List with the country and hotelName, 
+-- Q3b. List the average price of a room for each hotel in each country
+-- that is not Deluxe. List with the country and hotelName, 
 -- and in the country then hotelName order.
 SELECT country, hotelName, AVG(price) AS AveragePrice
 FROM Hotel h
@@ -460,7 +465,8 @@ WHERE type <> 'Deluxe'
 GROUP BY country, hotelName
 ORDER BY country, hotelName;
 
--- Q4. List the total Revenue with the hotelName, and only if the total revenue if between $500 to $1000. List in hotelName order
+-- Q4. List the total Revenue with the hotelName, and only if the total revenue 
+-- is between $500 to $1000. List in hotelName order
 SELECT hotelName, SUM(price) AS Revenue
 FROM Hotel h
    INNER JOIN Room r
@@ -470,7 +476,8 @@ GROUP BY h.hotelName
 HAVING SUM(price) BETWEEN 500 AND 1000
 ORDER BY Revenue DESC;
 
--- Q5. List the type, price, numbers of rooms for each possible combination of type and price of all rooms at the hotels with ‘Grosvenor’ in name. 
+-- Q5. List the type, price, numbers of rooms for each possible combination of 
+-- type and price of all rooms at the hotels with ‘Grosvenor’ in name. 
 -- List only if the number of rooms for each type is greater than 3.
 SELECT DISTINCT hotelName, type, price, COUNT(*) AS Combinations
 FROM Hotel h
@@ -480,7 +487,9 @@ WHERE h.hotelName LIKE '%Grosvenor%'
 GROUP BY h.hotelName, r.type, r.price
 HAVING COUNT(*) > 3;
 
--- Q6. List all the guests currently staying at the Grosvenor Hotel. Include all guest information in the output.
+-- Q6. List all the guests currently staying at the Grosvenor Hotel. 
+-- Include all guest information in the output.
+
 SELECT roomNo, g.guestNo, guestName, guestAddress, g.country
 FROM Booking b
    INNER JOIN Guest g
@@ -503,7 +512,8 @@ WHERE h.hotelName LIKE '%Grosvenor%'
 GROUP BY h.hotelName
 ORDER By h.hotelName;
 
--- Q8. List hotelNo, hotelName, type, total income of each room type from bookings for each hotel today. With an ascending order of hotelName and type.
+-- Q8. List hotelNo, hotelName, type, total income of each room type 
+-- from bookings for each hotel today. With an ascending order of hotelName and type.
 SELECT DISTINCT b.hotelNo, hotelName, type, SUM(price) AS Income
 FROM Booking b
    INNER JOIN Hotel h
@@ -527,7 +537,8 @@ WHERE r.hotelNo IS NULL
    AND (type IS NULL)
    AND (price IS NULL);   
 
--- Q10. List total the number of Hotels, the number of hotels completed, the number of hotels under construction, and the percentage of hotels under construction 
+-- Q10. List total the number of Hotels, the number of hotels completed, 
+-- the number of hotels under construction, and the percentage of hotels under construction 
 SELECT COUNT(DISTINCT h.hotelName) AS ALL_HOTELS, (COUNT(DISTINCT r.hotelNo)) AS COMPLETED, 
    (COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) AS UNDERCONSTR, 
    (((COUNT(DISTINCT h.hotelName) - COUNT(DISTINCT r.hotelNo)) / COUNT(DISTINCT h.hotelName)) * 100) AS PERCENT_UNDERCONSTR
