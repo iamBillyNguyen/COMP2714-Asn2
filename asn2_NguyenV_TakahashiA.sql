@@ -400,7 +400,7 @@ SET TAB OFF
 SET LINESIZE 100
 SET PAGESIZE 60
 
-SPOOL "C:\Users\ataka\Documents\2714\assignment2\Asn2_TakahashiA_NguyenV.txt"
+SPOOL "C:\Users\demon\Desktop\COMP 2714\WORK\Asn2\Asn2_TakahashiA_NguyenV.txt"
 
 --  COMP 2714 
 --  SET 2B
@@ -439,11 +439,10 @@ FROM Hotel h
    INNER JOIN Booking b 
    ON h.hotelNo = b.hotelNo 
 WHERE country = 'Canada'
-    AND hotelAddress LIKE '%Surrey%'
-	AND hotelAddress NOT LIKE '%North Surrey%'
-	AND hotelAddress NOT LIKE '%South Surrey%'
-	AND country = 'Canada'
-	AND dateTo IS NULL;
+   AND hotelAddress LIKE '%,%Surrey%'
+   AND (hotelAddress NOT LIKE '%, % Surrey%'
+   OR hotelAddress LIKE '%,  Surrey%')
+   AND dateTo IS NULL;
 
 -- Q3a. List the average price of a room for each hotel. 
 -- List it with hotelName and in hotelName order.

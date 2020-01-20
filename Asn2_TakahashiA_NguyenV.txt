@@ -1,4 +1,4 @@
-﻿SQL> 
+SQL> 
 SQL> --  COMP 2714
 SQL> --  SET 2B
 SQL> --  Assignment ASN02
@@ -16,7 +16,7 @@ SQL> SELECT SYSDATE
 
 SYSDATE                                                                                             
 ----------                                                                                          
-2020-01-18                                                                                          
+2020-01-20                                                                                          
 
 SQL> 
 SQL> -- Q1. List hotelName, hotelAddress, room type, and price of all
@@ -56,11 +56,10 @@ SQL> SELECT hotelName, hotelAddress, roomNo, dateFrom, dateTo
   3     INNER JOIN Booking b
   4     ON h.hotelNo = b.hotelNo
   5  WHERE country = 'Canada'
-  6      AND hotelAddress LIKE '%Surrey%'
-  7  AND hotelAddress NOT LIKE '%North Surrey%'
-  8  AND hotelAddress NOT LIKE '%South Surrey%'
-  9  AND country = 'Canada'
- 10  AND dateTo IS NULL;
+  6     AND hotelAddress LIKE '%,%Surrey%'
+  7     AND (hotelAddress NOT LIKE '%, % Surrey%'
+  8     OR hotelAddress LIKE '%,  Surrey%')
+  9     AND dateTo IS NULL;
 
 HOTELNAME        HOTELADDRESS                                 ROOMNO DATEFROM   DATETO              
 ---------------- ---------------------------------------- ---------- ---------- ----------          
