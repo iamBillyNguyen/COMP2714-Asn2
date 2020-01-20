@@ -535,7 +535,8 @@ FROM Hotel h
 WHERE r.hotelNo IS NULL
    AND (roomNo IS NULL)
    AND (type IS NULL)
-   AND (price IS NULL);   
+   AND (price IS NULL)
+ORDER BY hotelNo ASC;   
 
 -- Q10. List total the number of Hotels, the number of hotels completed, 
 -- the number of hotels under construction, and the percentage of hotels under construction 

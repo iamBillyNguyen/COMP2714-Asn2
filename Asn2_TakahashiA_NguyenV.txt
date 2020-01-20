@@ -225,13 +225,14 @@ SQL> SELECT h.hotelNo, hotelName, hotelAddress, country
   5  WHERE r.hotelNo IS NULL
   6     AND (roomNo IS NULL)
   7     AND (type IS NULL)
-  8     AND (price IS NULL);
+  8     AND (price IS NULL)
+  9  ORDER BY hotelNo ASC;
 
    HOTELNO HOTELNAME        HOTELADDRESS                             COUNTRY                        
 ---------- ---------------- ---------------------------------------- --------------------           
+         9 Royale Paris     500 Avenue Montaigne, Paris              France                         
         10 Olympic Resort   223 Olympic Street, Whistler             Canada                         
         11 Romantic Hotel   223 Rue Cler, Paris                      France                         
-         9 Royale Paris     500 Avenue Montaigne, Paris              France                         
 
 SQL> 
 SQL> -- Q10. List total the number of Hotels, the number of hotels completed,
